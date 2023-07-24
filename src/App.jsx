@@ -1,11 +1,13 @@
 import './App.css'
+//import Toaster
+import { Toaster } from 'react-hot-toast';
 
 function App() {
 
   return (
-    <div className="App">
-      testing frond end
-    </div>
+    <>
+      <Toaster />
+    </>
   )
 }
 
