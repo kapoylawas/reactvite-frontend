@@ -11,9 +11,9 @@ import Cookies from "js-cookie";
 import Api from "../../../api";
 import { Link } from "react-router-dom";
 
-function Dashboard() {
+function PostIndex() {
   //title page
-  document.title = "Dashboard - Administrator";
+  document.title = "Postings - Administrator";
 
   //token
   const token = Cookies.get("token");
@@ -98,4 +98,4 @@ function Dashboard() {
   );
 }
 
-export default Dashboard;
+export default PostIndex;

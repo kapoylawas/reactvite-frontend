@@ -11,13 +11,13 @@ import toast from "react-hot-toast";
 import Cookies from "js-cookie";
 
 //import react router dom
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 
 function Login() {
 
 	//title page
-    document.title = "Login - Administrator Travel GIS";
+    document.title = "Login - Administrator";
 
     //navigate
     const navigate = useNavigate();
@@ -115,6 +115,9 @@ function Login() {
                                     <button className="btn btn-success shadow-sm rounded-sm px-4 w-100" type="submit" disabled={isLoading}> {isLoading ? "LOADING..." : "LOGIN"} </button>
                                 </form>
                             </div>
+                        </div>
+                        <div className="text-center mt-3">
+                            <Link to="/register">Register Akun!</Link>
                         </div>
                     </div>
                 </div>

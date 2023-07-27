@@ -36,8 +36,6 @@ const LayoutAdmin = ({ children }) => {
 
   const data = jwt_decode(token);
 
-  console.log(data.user.email);
-
   //function toggle hanlder
   const sidebarToggleHandler = (e) => {
     e.preventDefault();
@@ -79,14 +77,13 @@ const LayoutAdmin = ({ children }) => {
 
   const fetchData = async () => {
     //fetch on Rest API
-    await Api.get("api/v1/user/1", {
+    await Api.get("api/v1/user", {
       headers: {
         //header Bearer + Token
         token: `${token}`,
       },
     }).then((response) => {
       //set state "user"
-      console.log(response);
       setUser(response.data);
     });
   };
@@ -128,9 +125,6 @@ const LayoutAdmin = ({ children }) => {
                     className="fw-bold"
                     id="basic-nav-dropdown"
                   >
-                    <NavDropdown.Item as={Link} to="/" target="_blank">
-                      <i className="fa fa-external-link-alt me-2"></i> Visit Web
-                    </NavDropdown.Item>
                     <NavDropdown.Divider />
                     <NavDropdown.Item as={Link} to="/admin/users">
                       <i className="fa fa-users me-2"></i> Users
