@@ -24,7 +24,7 @@ Api.interceptors.response.use(function (response) {
 }, ((error) => {
 
     //check if response unauthenticated
-    if (401 === error.response.status) {
+    if (403 === error.response.status) {
 
         //remove token
         Cookies.remove('token');
