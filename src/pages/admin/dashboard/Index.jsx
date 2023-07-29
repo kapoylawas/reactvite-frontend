@@ -9,7 +9,9 @@ import Cookies from "js-cookie";
 
 //import BASE URL API
 import Api from "../../../api";
+
 import { Link } from "react-router-dom";
+import PaginationComponent from "../../../components/utilities/Pagination";
 
 function Dashboard() {
   //title page
@@ -23,21 +25,43 @@ function Dashboard() {
   //state search
   const [search, setSearch] = useState("");
 
-  const fetchData = async (searchData) => {
-    //define variable "searchQuery"
-    const searchQuery = searchData ? searchData : search;
+  //state currentPage
+  const [currentPage, setCurrentPage] = useState(1);
 
-    //fetch on Rest API
-    await Api.get(`api/v1/posting?keyword=${searchQuery}`, {
-      headers: {
-        //header Bearer + Token
-        token: `${token}`,
-      },
-    }).then((response) => {
-      //set state "user"
-      console.log(response);
-      setPost(response.data.data);
-    });
+  //state perPage
+  const [perPage, setPerPage] = useState(0);
+
+  //state total
+  const [total, setTotal] = useState(0);
+
+  const fetchData = async (searchData) => {
+    try {
+      //define variable "searchQuery"
+      const searchQuery = searchData ? searchData : search;
+
+      //fetch on Rest API
+      await Api.get(`api/v1/posting?keyword=${searchQuery}`, {
+        headers: {
+          //header Bearer + Token
+          token: `${token}`,
+        },
+      }).then((response) => {
+        //set state "user"
+        console.log(response);
+        setPost(response.data.data);
+
+        //set currentPage
+        setCurrentPage(response.data.currentPage);
+
+        //set perPage
+        setPerPage(response.data.totalPages);
+
+        //total
+        setTotal(response.data.totalItems);
+      });
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
   };
 
   //hook useEffect
@@ -92,8 +116,15 @@ function Dashboard() {
               </div>
             </div>
           ))}
+          <PaginationComponent
+            currentPage={currentPage}
+            perPage={perPage}
+            total={total}
+            onChange={(pageNumber) => fetchData(pageNumber)}
+            position="end"
+          />
         </div>
-      </LayoutAdmin>
+      </LayoutAdmin>  
     </React.Fragment>
   );
 }
